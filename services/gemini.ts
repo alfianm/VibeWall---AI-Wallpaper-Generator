@@ -3,17 +3,33 @@ import { GoogleGenAI } from "@google/genai";
 // Initialize the client with the API key from the environment
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-export const generateWallpapers = async (prompt: string): Promise<string[]> => {
+export const generateWallpapers = async (
+  userPrompt: string, 
+  aspectRatio: string = '9:16',
+  style: string = 'None',
+  quality: string = 'Standard'
+): Promise<string[]> => {
   try {
+    // Construct the effective prompt based on style and quality settings
+    let effectivePrompt = userPrompt;
+
+    if (style && style !== 'None') {
+      effectivePrompt = `${style} style. ${effectivePrompt}`;
+    }
+
+    if (quality === 'High') {
+      effectivePrompt = `${effectivePrompt}, highly detailed, 8k resolution, masterpiece, sharp focus, high quality`;
+    }
+
     // Using the specific model requested: imagen-4.0-generate-001
     const response = await ai.models.generateImages({
       model: 'imagen-4.0-generate-001',
-      prompt: prompt,
+      prompt: effectivePrompt,
       config: {
         numberOfImages: 4,
         outputMimeType: 'image/jpeg',
-        // Strictly required 9:16 aspect ratio for phone wallpapers
-        aspectRatio: '9:16',
+        // Use the requested aspect ratio
+        aspectRatio: aspectRatio,
       },
     });
 

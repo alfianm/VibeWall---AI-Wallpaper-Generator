@@ -3,6 +3,9 @@ export interface GeneratedImage {
   base64: string;
   prompt: string;
   timestamp: number;
+  aspectRatio?: string;
+  style?: string;
+  quality?: string;
 }
 
 export interface GenerationState {

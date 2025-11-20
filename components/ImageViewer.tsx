@@ -20,6 +20,8 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ image, onClose, onRemi
     document.body.removeChild(link);
   };
 
+  const isLandscape = image.aspectRatio === '16:9';
+
   return (
     <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center p-4">
       {/* Close Button */}
@@ -31,7 +33,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ image, onClose, onRemi
       </button>
 
       {/* Image Container */}
-      <div className="relative w-full max-w-md aspect-[9/16] max-h-[85vh] rounded-xl overflow-hidden shadow-2xl shadow-primary/20">
+      <div className={`relative w-full max-w-md rounded-xl overflow-hidden shadow-2xl shadow-primary/20 ${isLandscape ? 'aspect-video' : 'aspect-[9/16] max-h-[85vh]'}`}>
         <img 
           src={image.base64} 
           alt={image.prompt} 

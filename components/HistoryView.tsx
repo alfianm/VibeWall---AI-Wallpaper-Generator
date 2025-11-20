@@ -118,25 +118,25 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                 <button
                                     key={img.id}
                                     onClick={() => onSelect(img)}
-                                    className="relative aspect-[9/16] rounded-lg overflow-hidden border border-white/5 group focus:outline-none focus:ring-2 focus:ring-primary"
+                                    className={`relative rounded-lg overflow-hidden border border-white/5 group focus:outline-none focus:ring-2 focus:ring-primary ${img.aspectRatio === '16:9' ? 'aspect-video' : 'aspect-[9/16]'}`}
                                 >
                                     <img 
-                                        src={img.base64} 
-                                        alt={img.prompt} 
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        src={img.base64}
+                                        alt={img.prompt}
+                                        className="w-full h-full object-cover"
                                         loading="lazy"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                                      <p className="text-[10px] text-white/90 truncate w-full text-left">
-                                        {new Date(img.timestamp).toLocaleDateString()}
-                                      </p>
+                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2">
+                                        <p className="text-[10px] text-white line-clamp-2 text-left w-full">
+                                            {img.prompt}
+                                        </p>
                                     </div>
                                 </button>
-                             ))}
+                            ))}
                         </div>
                         {hasMore && (
-                            <div ref={loaderRef} className="py-6 flex justify-center w-full">
-                                <Loader2 className="w-6 h-6 text-zinc-600 animate-spin" />
+                            <div ref={loaderRef} className="py-4 flex justify-center w-full">
+                                <Loader2 className="w-6 h-6 text-primary animate-spin" />
                             </div>
                         )}
                     </>
