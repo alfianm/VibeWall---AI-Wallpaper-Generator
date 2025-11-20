@@ -1,0 +1,5 @@
+{
+  "name": "VibeWall - AI Wallpaper Generator",
+  "description": "Generate stunning, mobile-first phone wallpapers using Google's Imagen 4 model. Describe your vibe, get 4 variations in 9:16, and remix them to perfection.",
+  "requestFramePermissions": []
+}
